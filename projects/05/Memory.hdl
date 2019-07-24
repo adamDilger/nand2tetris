@@ -27,5 +27,20 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    And(a=address[14], b=address[13],   out=isKbdAddress);
+    Nand(a=address[14], b=address[13],  out=isMemAddress);
+
+    Xor(a=address[14], b=address[13],   out=isScreenAddress);
+
+    And(a=load, b=isScreenAddress,  out=loadScreen);
+    And(a=load, b=isMemAddress,     out=loadMem);
+
+    RAM16K(in=in,   out=outMem,     load=loadMem,     address=address[0..13]);
+    Screen(in=in,   out=outScreen,  load=loadScreen,  address=address[0..12]);
+    Keyboard(out=outKbd);
+
+    Mux4Way16(a=outMem, b=outKbd, c=outScreen, d=outScreen,
+      sel[1]=isScreenAddress,
+      sel[0]=isKbdAddress,
+      out=out);
 }
