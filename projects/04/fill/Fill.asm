@@ -14,6 +14,35 @@
 // Put your code here.
 
 (MAIN)
+
+  //SET SCREEN VALUE FROM KEYBOARD
+  @screen
+  M=0
+
+  @KBD
+  D=M
+
+  @0
+  D=A-D
+
+  @NO_KEY_PRESSED
+  D;JGE
+
+  @screen
+  M=-1
+
+  (NO_KEY_PRESSED)
+
+  //check if screen needs to be updated
+  @screen
+  D=M
+
+  @SCREEN
+  D=D-M
+
+  @MAIN
+  D;JEQ
+
   @KBD
   D=A
 
@@ -21,16 +50,18 @@
   M=D
 
   (SCREENLOOP)
+
+
     @count
     M=M-1
 
-    @KBD
+    @screen
     D=M
 
     @count
     A=M
 
-    M=!D
+    M=D
 
     @count
     D=M
