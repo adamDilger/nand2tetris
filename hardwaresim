@@ -1,1 +1,10 @@
-/home/adam/dev/nand2tetris/tools/HardwareSimulator.sh $1.tst ; cat $1.cmp; echo; cat $1.out
+# /home/adam/dev/nand2tetris/tools/HardwareSimulator.sh $1.tst ; cat $1.cmp; echo; cat $1.out
+
+
+/home/adam/dev/nand2tetris/tools/HardwareSimulator.sh $1.tst;
+
+lines=`cat $1.out | wc -l`
+
+head -n $lines $1.cmp;
+echo;
+cat $1.out
